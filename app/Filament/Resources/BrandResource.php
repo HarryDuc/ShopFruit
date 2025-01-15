@@ -46,7 +46,7 @@ class BrandResource extends Resource
                         ]),
                     FileUpload::make('image')
                         ->image()
-                        ->directory('categories'),
+                        ->directory('bands'),
                     Toggle::make('is_active')
                         ->required()
                         ->default(true)
@@ -63,8 +63,8 @@ class BrandResource extends Resource
                 Tables\Columns\ImageColumn::make('image'),
                 Tables\Columns\TextColumn::make('slug')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('is_active')
-                    ->searchable(),
+                Tables\Columns\IconColumn::make('is_active')
+                    ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
