@@ -47,6 +47,7 @@ class BrandResource extends Resource
                     FileUpload::make('image')
                         ->image()
                         ->directory('bands'),
+                        // dd($a),
                     Toggle::make('is_active')
                         ->required()
                         ->default(true)

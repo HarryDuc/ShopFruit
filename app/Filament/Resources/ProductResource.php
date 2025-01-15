@@ -72,7 +72,7 @@ class ProductResource extends Resource
                         TextInput::make('price')
                             ->numeric()
                             ->required()
-                            ->prefix('₫')
+                            ->prefix('VND')
                     ]),
                     Section::make('Associations')->schema([
                         Select::make('category_id')
