@@ -4,7 +4,7 @@ namespace App\Helpers;
 use App\Models\Product;
 use Illuminate\Support\Facades\Cookie;
 
-class CartMangement
+class CartManagement
 {
     static public function addItemToCart($product_id)
     {
@@ -20,7 +20,7 @@ class CartMangement
             $cart_items[$existing_item]['quantity']++;
             $cart_items[$existing_item]['total_amount'] = $cart_items[$existing_item]['quantity'] * $cart_items[$existing_item]['unit_amount'];
         } else {
-            $product = Product::where('id', $product_id)->first(['id', 'name', 'price', 'image']);
+            $product = Product::where('id', $product_id)->first(['id', 'name', 'price', 'images']);
             if ($product) {
                 $cart_items[] = [
                     'product_id' => $product->id,

@@ -8,6 +8,9 @@
     <title>{{ $title ?? 'Shop Fruit' }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <x-livewire-alert::scripts />
 </head>
 
 <body class="bg-slate-200 dark:bg-slate-700">
