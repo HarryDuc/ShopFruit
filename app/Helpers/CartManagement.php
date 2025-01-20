@@ -46,7 +46,9 @@ class CartManagement
             }
         }
         if ($existing_item !== null) {
-            $cart_items[$existing_item]['quantity'] = $qty;
+            $cart_items[$existing_item]['quantity'] = $qty + $item['quantity'];
+            // $cart_items[$existing_item]['quantity'] = $qty;
+            $cart_items[$existing_item]['quantity'] += $qty;
             $cart_items[$existing_item]['total_amount'] = $cart_items[$existing_item]['quantity'] * $cart_items[$existing_item]['unit_amount'];
         } else {
             $product = Product::where('id', $product_id)->first(['id', 'name', 'price', 'images']);
@@ -57,7 +59,7 @@ class CartManagement
                     'image' => $product->images[0],
                     'quantity' => $qty,
                     'unit_amount' => $product->price,
-                    'total_amount' => $product->price
+                    'total_amount' => $product->price * $qty,
                 ];
             }
         }
