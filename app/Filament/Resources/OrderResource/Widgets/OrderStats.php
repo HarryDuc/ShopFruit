@@ -16,7 +16,7 @@ class OrderStats extends BaseWidget
             Stat::make('New Orders', Order::query()->where('status', 'new')->count()),
             Stat::make('Order Processing', Order::query()->where('status', 'processing')->count()),
             Stat::make('Order Shipped', Order::query()->where('status', 'shipped')->count()),
-            Stat::make('Average Price', Number::currency($averagePrice, 'VND')), // Đảm bảo luôn có giá trị int|float
+            Stat::make('Average Price', number_format($averagePrice, 0, ',', '.') . '₫'),
         ];
     }
 }

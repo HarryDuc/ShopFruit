@@ -1,17 +1,17 @@
 <div class="w-full max-w-[85rem] py-10 px-4 sm:px-6 lg:px-8 mx-auto">
     <div class="container mx-auto px-4">
-        <h1 class="text-2xl font-semibold mb-4">Shopping Cart</h1>
+        <h1 class="text-2xl font-semibold mb-4 text-center">Giỏ hàng</h1>
         <div class="flex flex-col md:flex-row gap-4">
             <div class="md:w-3/4">
                 <div class="bg-white overflow-x-auto rounded-lg shadow-md p-6 mb-4">
                     <table class="w-full">
                         <thead>
                             <tr>
-                                <th class="text-left font-semibold">Product</th>
-                                <th class="text-left font-semibold">Price</th>
-                                <th class="text-left font-semibold">Quantity</th>
-                                <th class="text-left font-semibold">Total</th>
-                                <th class="text-left font-semibold">Remove</th>
+                                <th class="text-left font-semibold">Sản phẩm</th>
+                                <th class="text-left font-semibold">Giá</th>
+                                <th class="text-left font-semibold">Số lượng</th>
+                                <th class="text-left font-semibold">Tổng</th>
+                                <th class="text-left font-semibold">Xóa</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -24,7 +24,7 @@
                                         <span class="font-semibold">{{$item['name']}}</span>
                                     </div>
                                 </td>
-                                <td class="py-4">{{Number::currency($item['unit_amount'], 'VND')}}</td>
+                                <td class="py-4">{{ number_format($item['unit_amount'], 0, ',', '.') }}₫</td>
                                 <td class="py-4">
                                     <div class="flex items-center">
                                         <button wire:click="decreaseQty({{$item['product_id']}})"
@@ -34,13 +34,13 @@
                                             class="border rounded-md py-2 px-4 ml-2">+</button>
                                     </div>
                                 </td>
-                                <td class="py-4">{{Number::currency($item['total_amount'], 'VND')}}</td>
+                                <td class="py-4">{{ number_format($item['unit_amount'], 0, ',', '.') }}₫</td>
                                 <td><button wire:click="removeItem({{$item['product_id']}})"
                                         class="bg-slate-300 border-2 border-slate-400 rounded-lg px-3 py-1 hover:bg-red-500 hover:text-white hover:border-red-700"><span
                                             wire:loading.remove
-                                            wire:target="removeItem({{$item['product_id']}})">Remove</span><span
+                                            wire:target="removeItem({{$item['product_id']}})">Xóa</span><span
                                             wire:loading
-                                            wire:target="removeItem({{$item['product_id']}})">Removing...</span></button>
+                                            wire:target="removeItem({{$item['product_id']}})">Đang xóa...</span></button>
                                 </td>
                             </tr>
                             @empty
@@ -57,26 +57,26 @@
             </div>
             <div class="md:w-1/4">
                 <div class="bg-white rounded-lg shadow-md p-6">
-                    <h2 class="text-lg font-semibold mb-4">Summary</h2>
+                    <h2 class="text-lg font-semibold mb-4">Tổng hóa đơn</h2>
                     <div class="flex justify-between mb-2">
-                        <span>Subtotal</span>
-                        <span>{{Number::currency($grand_total, 'VND')}}</span>
+                        <span>Hóa đơn</span>
+                        <span>{{ number_format($grand_total, 0, ',', '.') }}₫</span>
                     </div>
                     <div class="flex justify-between mb-2">
-                        <span>Taxes</span>
-                        <span>{{Number::currency(0, 'VND')}}</span>
+                        <span>Thuế</span>
+                        <span>0đ</span>
                     </div>
                     <div class="flex justify-between mb-2">
-                        <span>Shipping</span>
-                        <span>{{Number::currency(0, 'VND')}}</span>
+                        <span>Phí vận chuyển</span>
+                        <span>0đ</span>
                     </div>
                     <hr class="my-2">
                     <div class="flex justify-between mb-2">
-                        <span class="font-semibold">Grand Total</span>
-                        <span class="font-semibold">{{Number::currency($grand_total, 'VND')}}</span>
+                        <span class="font-semibold">Thành tiền</span>
+                        <span class="font-semibold">{{ number_format($grand_total, 0, ',', '.') }}₫</span>
                     </div>
                     @if ($cart_items)
-                    <a href="/checkout" class="block text-center bg-blue-500 text-white py-2 px-4 rounded-lg mt-4 w-full">Checkout</a>
+                    <a href="/checkout" class="block text-center bg-blue-500 text-white py-2 px-4 rounded-lg mt-4 w-full">Thanh toán</a>
                     @endif
                 </div>
             </div>

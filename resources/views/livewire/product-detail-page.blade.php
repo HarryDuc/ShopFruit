@@ -9,11 +9,11 @@
             </div>
             <div class="flex-wrap hidden md:flex ">
               @foreach ($product->images as $image)
-                <div class="w-1/2 p-2 sm:w-1/4" x-on:click="mainImage='{{url('storage', $image)}}'">
-                <img src="{{url('storage', $image)}}" alt="{{url('storage', $product->name)}}"
-                  class="object-cover w-full lg:h-20 cursor-pointer hover:border hover:border-blue-500">
-                </div>
-              @endforeach
+          <div class="w-1/2 p-2 sm:w-1/4" x-on:click="mainImage='{{url('storage', $image)}}'">
+          <img src="{{url('storage', $image)}}" alt="{{url('storage', $product->name)}}"
+            class="object-cover w-full lg:h-20 cursor-pointer hover:border hover:border-blue-500">
+          </div>
+        @endforeach
             </div>
             <div class="px-6 pb-6 mt-6 border-t border-gray-300 dark:border-gray-400 ">
               <div class="flex flex-wrap items-center mt-6">
@@ -25,7 +25,7 @@
                     </path>
                   </svg>
                 </span>
-                <h2 class="text-lg font-bold text-gray-700 dark:text-gray-400">Free Shipping</h2>
+                <h2 class="text-lg font-bold text-gray-700 dark:text-gray-400">Miễn phí vận chuyển</h2>
               </div>
             </div>
           </div>
@@ -37,8 +37,7 @@
                 {{$product->name}}
               </h2>
               <p class="inline-block mb-6 text-4xl font-bold text-gray-700 dark:text-gray-400 ">
-                <span>{{Number::currency($product->price, 'VND')}}</span>
-                <!-- <span class="text-base font-normal text-gray-500 line-through dark:text-gray-400">$1800.99</span> -->
+                <span>{{ number_format($product->price, 0, ',', '.') }}₫</span>
               </p>
               <p class="max-w-md text-gray-700 dark:text-gray-400">
                 {!!Str::markdown($product->description)!!}
@@ -46,7 +45,7 @@
             </div>
             <div class="w-32 mb-8 ">
               <label for=""
-                class="w-full pb-1 text-xl font-semibold text-gray-700 border-b border-blue-300 dark:border-gray-600 dark:text-gray-400">Quantity</label>
+                class="w-full pb-1 text-xl font-semibold text-gray-700 border-b border-blue-300 dark:border-gray-600 dark:text-gray-400">Số lượng</label>
               <div class="relative flex flex-row w-full h-10 mt-6 bg-transparent rounded-lg">
                 <button wire:click="decreaseQty"
                   class="w-20 h-full text-gray-600 bg-gray-300 rounded-l outline-none cursor-pointer dark:hover:bg-gray-700 dark:text-gray-400 hover:text-gray-700 dark:bg-gray-900 hover:bg-gray-400">
@@ -64,7 +63,8 @@
             <div class="flex flex-wrap items-center gap-4">
               <button wire:click="addToCart({{$product->id}})"
                 class="w-full p-4 bg-blue-500 rounded-md lg:w-2/5 dark:text-gray-200 text-gray-50 hover:bg-blue-600 dark:bg-blue-500 dark:hover:bg-blue-700">
-                <span wire:loading.remove wire:target="addToCart({{$product->id}})">Add to cart</span><span wire:loading wire:target="addToCart({{$product->id}})">Adding...</span></button>
+                <span wire:loading.remove wire:target="addToCart({{$product->id}})">Thêm sản phẩm</span><span wire:loading
+                  wire:target="addToCart({{$product->id}})">Đang thêm...</span></button>
             </div>
           </div>
         </div>

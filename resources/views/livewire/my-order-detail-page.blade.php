@@ -1,5 +1,5 @@
 <div class="w-full max-w-[85rem] py-10 px-4 sm:px-6 lg:px-8 mx-auto">
-  <h1 class="text-4xl font-bold text-slate-500">Order Details</h1>
+  <h1 class="text-4xl font-bold text-slate-500">Chi tiết hóa đơn</h1>
 
   <!-- Grid -->
   <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mt-5">
@@ -18,7 +18,7 @@
         <div class="grow">
           <div class="flex items-center gap-x-2">
             <p class="text-xs uppercase tracking-wide text-gray-500">
-              Customer
+              Người dùng
             </p>
           </div>
           <div class="mt-1 flex items-center gap-x-2">
@@ -44,7 +44,7 @@
         <div class="grow">
           <div class="flex items-center gap-x-2">
             <p class="text-xs uppercase tracking-wide text-gray-500">
-              Order Date
+              Thời gian thanh toán
             </p>
           </div>
           <div class="mt-1 flex items-center gap-x-2">
@@ -70,7 +70,7 @@
         <div class="grow">
           <div class="flex items-center gap-x-2">
             <p class="text-xs uppercase tracking-wide text-gray-500">
-              Order Status
+              Trạng thái đơn hàng
             </p>
           </div>
           <div class="mt-1 flex items-center gap-x-2">
@@ -119,11 +119,10 @@
         <div class="grow">
           <div class="flex items-center gap-x-2">
             <p class="text-xs uppercase tracking-wide text-gray-500">
-              Payment Status
+              Trạng thái thanh toán
             </p>
           </div>
           <div class="mt-1 flex items-center gap-x-2">
-            <span class="bg-green-500 py-1 px-3 rounded text-white shadow">
               @php
                 $payment_status = '';
                 if ($order->payment_status == 'pending') {
@@ -140,7 +139,6 @@
                 }
               @endphp
               {!!$payment_status!!}
-            </span>
           </div>
         </div>
       </div>
@@ -155,10 +153,10 @@
         <table class="w-full">
           <thead>
             <tr>
-              <th class="text-left font-semibold">Product</th>
-              <th class="text-left font-semibold">Price</th>
-              <th class="text-left font-semibold">Quantity</th>
-              <th class="text-left font-semibold">Total</th>
+              <th class="text-left font-semibold">Sản phẩm</th>
+              <th class="text-left font-semibold">Giá</th>
+              <th class="text-left font-semibold">Số lượng</th>
+              <th class="text-left font-semibold">Tổng</th>
             </tr>
           </thead>
           <tbody>
@@ -171,11 +169,11 @@
                   <span class="font-semibold">{{$item->product->name}}</span>
                 </div>
               </td>
-              <td class="py-4">{{Number::currency($item->unit_amount, 'VND')}}</td>
+              <td class="py-4">{{ number_format($item->unit_amount, 0, ',', '.') }}₫</td>
               <td class="py-4">
                 <span class="text-center w-8">{{$item->quantity}}</span>
               </td>
-              <td class="py-4">{{Number::currency($item->total_amount, 'VND')}}</td>
+              <td class="py-4">{{ number_format($item->total_amount, 0, ',', '.') }}₫</td>
             </tr>
             @endforeach
 
@@ -184,13 +182,13 @@
       </div>
 
       <div class="bg-white overflow-x-auto rounded-lg shadow-md p-6 mb-4">
-        <h1 class="font-3xl font-bold text-slate-500 mb-3">Shipping Address</h1>
+        <h1 class="font-3xl font-bold text-slate-500 mb-3">Địa chỉ nhận hàng</h1>
         <div class="flex justify-between items-center">
           <div>
-            <p>{{$address->street_address}}, {{$address->city}}, {{$address->state}}, {{$address->zip_code}}</p>
+            <p>{{$address->street_address}}, {{$address->state}}, {{$address->city}}, {{$address->zip_code}}</p>
           </div>
           <div>
-            <p class="font-semibold">Phone:</p>
+            <p class="font-semibold">Số điện thoại:</p>
             <p>{{$address->phone}}</p>
           </div>
         </div>
@@ -199,23 +197,24 @@
     </div>
     <div class="md:w-1/4">
       <div class="bg-white rounded-lg shadow-md p-6">
-        <h2 class="text-lg font-semibold mb-4">Summary</h2>
+        <h2 class="text-lg font-semibold mb-4">Tổng hóa đơn</h2>
         <div class="flex justify-between mb-2">
-          <span>Subtotal</span>
-          <span>{{Number::currency($item->order->grand_total, 'VND')}}</span>
+          <span>Giá sản phẩm</span>
+          <span>{{ number_format($item->order->grand_total, 0, ',', '.') }}₫</span>
+
         </div>
         <div class="flex justify-between mb-2">
-          <span>Taxes</span>
+          <span>Thuế</span>
           <span>0đ</span>
         </div>
         <div class="flex justify-between mb-2">
-          <span>Shipping</span>
+          <span>Phí vận chuyển</span>
           <span>0đ</span>
         </div>
         <hr class="my-2">
         <div class="flex justify-between mb-2">
-          <span class="font-semibold">Grand Total</span>
-          <span>{{Number::currency($item->order->grand_total, 'VND')}}</span>
+          <span class="font-semibold">Thành tiền</span>
+          <span>{{ number_format($item->order->grand_total, 0, ',', '.') }}₫</span>
         </div>
 
       </div>
