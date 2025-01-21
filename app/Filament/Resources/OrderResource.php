@@ -46,6 +46,7 @@ class OrderResource extends Resource
                         Select::make('payment_method')
                             ->options([
                                 'cod' => 'Cash on delivery',
+                                'stripe' => 'Stripe',
                                 'paypal' => 'PayPal',
                                 'momo' => 'MoMo',
                                 'vnpay' => 'VN Pay',
