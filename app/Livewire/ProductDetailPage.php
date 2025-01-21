@@ -8,7 +8,7 @@ use App\Models\Product;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Attributes\Title;
 use Livewire\Component;
-#[Title('Product Detail - Shop Fruit')]
+#[Title('Chi tiết sản phẩm')]
 class ProductDetailPage extends Component {
     use LivewireAlert;
 

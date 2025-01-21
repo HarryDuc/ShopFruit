@@ -34,7 +34,7 @@
           <div
             class="flex flex-col gap-x-0 mt-5 divide-y divide-dashed divide-gray-200 md:flex-row md:items-center md:justify-end md:gap-x-7 md:mt-0 md:ps-7 md:divide-y-0 md:divide-solid dark:divide-gray-700">
 
-            <a wire:navigate
+            {{-- <a wire:navigate
               class="font-medium {{request()->is('/') ? 'text-blue-600' : 'text-gray-600'}} py-3 md:py-6 dark:text-blue-500 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
               href="/" aria-current="page">Home</a>
 
@@ -48,7 +48,7 @@
               class="font-medium {{request()->is('products') ? 'text-blue-600' : 'text-gray-500'}} hover:text-gray-400 py-3 md:py-6 dark:text-gray-400 dark:hover:text-gray-500 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
               href="/products">
               Products
-            </a>
+            </a> --}}
 
             <a wire:navigate
               class="font-medium flex items-center {{request()->is('cart') ? 'text-blue-600' : 'text-gray-600'}} hover:text-gray-400 py-3 md:py-6 dark:text-gray-400 dark:hover:text-gray-500 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"

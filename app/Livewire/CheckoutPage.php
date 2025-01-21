@@ -11,7 +11,7 @@ use Livewire\Attributes\Title;
 use Livewire\Component;
 use Stripe\Checkout\Session;
 use Stripe\Stripe;
-#[Title("Checkout")]
+#[Title("Thanh toán")]
 class CheckoutPage extends Component
 {
     public $first_name;

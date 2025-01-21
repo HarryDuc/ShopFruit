@@ -8,7 +8,7 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 use Stripe\Checkout\Session;
 use Stripe\Stripe;
-#[Title("Successfully")]
+#[Title("Thanh toán thành công")]
 class SuccessPage extends Component
 {
     #[Url]
