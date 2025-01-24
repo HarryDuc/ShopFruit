@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <link rel="icon" href="{{url('storage', 'icon.png')}}" type="image/png">
     <title>{{ $title ?? 'Shop Fruit' }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
@@ -15,7 +15,6 @@
 
 <body class="bg-slate-200 dark:bg-slate-700">
     @livewire('partials.navbar')
-    {{-- <main class="w-full max-w-[85rem] py-10 px-4 sm:px-6 lg:px-8 mx-auto"> --}}
         <main>
             {{ $slot }}
         </main>

@@ -24,6 +24,8 @@ class AdminPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
+
+            ->brandLogo('storage/icon.png')
             ->default()
             ->id('admin')
             ->path('admin')

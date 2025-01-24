@@ -12,7 +12,7 @@ use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
-#[Title('Sản phẩm')]
+#[Title('Trang chủ')]
 class ProductsPage extends Component
 {
     use LivewireAlert;
@@ -30,7 +30,7 @@ class ProductsPage extends Component
     public $on_sale;
 
     #[Url]
-    public $price_range = 300000;
+    public $price_range = 1000000;
 
     #[Url]
     public $sort = 'latest';

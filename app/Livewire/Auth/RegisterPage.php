@@ -6,7 +6,7 @@ use App\Models\User;
 use Hash;
 use Livewire\Attributes\Title;
 use Livewire\Component;
-#[Title("Register - Shop Fruit")]
+#[Title("Đăng ký")]
 class RegisterPage extends Component
 {
     public $name;

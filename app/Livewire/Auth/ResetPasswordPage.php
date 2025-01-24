@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
 use Livewire\Component;
-#[Title("Reset Password")]
+#[Title("Lấy lại mật khẩu")]
 class ResetPasswordPage extends Component
 {
     public $token;

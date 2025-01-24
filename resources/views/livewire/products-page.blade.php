@@ -55,11 +55,11 @@
             <h2 class="text-2xl font-bold dark:text-gray-400">Giá</h2>
             <div class="w-16 pb-2 mb-6 border-b border-rose-600 dark:border-gray-400"></div>
             <div>
-              <div class="font_semibold">{{Number::currency($price_range, 'VND')}}</div>
-              <input type="range" wire:model.live="price_range" class="w-full h-1 mb-4 bg-blue-100 rounded appearance-none cursor-pointer" max="500000" value="300000" step="10000">
+              <div class="font_semibold">{{number_format($price_range, 0,  ',' , '.')}}₫</div>
+              <input type="range" wire:model.live="price_range" class="w-full h-1 mb-4 bg-blue-100 rounded appearance-none cursor-pointer" min="10000" max="3000000" value="1000000" step="20000">
               <div class="flex justify-between ">
-                <span class="inline-block text-lg font-bold text-blue-400 ">{{Number::currency(10000, 'VND')}}</span>
-                <span class="inline-block text-lg font-bold text-blue-400 ">{{Number::currency(500000, 'VND')}}</span>
+                <span class="inline-block text-lg font-bold text-blue-400 ">{{number_format(10000, 0,  ',' , '.')}}₫</span>
+                <span class="inline-block text-lg font-bold text-blue-400 ">{{number_format(3000000, 0,  ',' , '.')}}₫</span>
               </div>
             </div>
           </div>
