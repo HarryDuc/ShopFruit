@@ -38,12 +38,13 @@ class OrderResource extends Resource
                 Group::make()->schema([
                     Section::make('Order Information')->schema([
                         Select::make('user_id')
-                            ->label('Customer')
+                            ->label('Người dùng')
                             ->relationship('user', 'name')
                             ->searchable()
                             ->preload()
                             ->required(),
                         Select::make('payment_method')
+                            ->label('Phương thức thanh toán')
                             ->options([
                                 'cod' => 'Cash on delivery',
                                 'stripe' => 'Stripe',
@@ -54,6 +55,7 @@ class OrderResource extends Resource
                             ])
                             ->required(),
                         Select::make('payment_status')
+                            ->label('Trạng thái thanh toán')
                             ->options([
                                 'pending' => 'Pending',
                                 'paid' => 'Paid',
@@ -62,15 +64,16 @@ class OrderResource extends Resource
                             ->default('pending')
                             ->required(),
                         ToggleButtons::make('status')
+                            ->label('Trạng thái đơn hàng')
                             ->inline()
                             ->default('new')
                             ->required()
                             ->options([
-                                'new' => 'New',
-                                'processing' => 'Processing',
-                                'shipped' => 'Shipped',
-                                'delivered' => 'Delivered',
-                                'cancelled' => 'Cancelled',
+                                'new' => 'Đơn hàng mới',
+                                'processing' => 'Đang xử lý',
+                                'shipped' => 'Đang giao',
+                                'delivered' => 'Đã giao hàng',
+                                'cancelled' => 'Đã hủy'
                             ])
                             ->colors([
                                 'new' => 'info',
@@ -87,6 +90,7 @@ class OrderResource extends Resource
                                 'cancelled' => 'heroicon-m-x-circle',
                             ]),
                         Select::make('currency')
+                            ->label('Tiền tệ')
                             ->options([
                                 'vnd' => 'VND',
                                 'eur' => 'Euros',
@@ -95,6 +99,7 @@ class OrderResource extends Resource
                             ->default('vnd')
                             ->required(),
                         Select::make('shipping_method')
+                            ->label('Phương thức giao hàng')
                             ->options([
                                 'spxexpress' => 'SPX Express',
                                 'viettel' => 'Viettel Post',
@@ -102,13 +107,15 @@ class OrderResource extends Resource
                                 'jtexpress' => 'J&T Express',
                             ]),
                         Textarea::make('notes')
+                            ->label('Lưu ý')
                             ->columnSpanFull()
                     ])->columns(2),
-                    Section::make('Order Items')->schema([
+                    Section::make('Sản phẩm trong hóa đơn')->schema([
                         Repeater::make('items')
                             ->relationship()
                             ->schema([
                                 Select::make('product_id')
+                                    ->label('Sản phẩm')
                                     ->relationship('product', 'name')
                                     ->searchable()
                                     ->preload()
@@ -120,6 +127,7 @@ class OrderResource extends Resource
                                     ->afterStateUpdated(fn($state, Set $set) => $set('unit_amount', Product::find($state)?->price ?? 0))
                                     ->afterStateUpdated(fn($state, Set $set) => $set('total_amount', Product::find($state)?->price ?? 0)),
                                 TextInput::make('quantity')
+                                    ->label('Số lượng')
                                     ->numeric()
                                     ->required()
                                     ->default(1)
@@ -128,6 +136,7 @@ class OrderResource extends Resource
                                     ->reactive()
                                     ->afterStateUpdated(fn($state, Set $set, Get $get) => $set('total_amount', $state * $get('unit_amount'))),
                                 TextInput::make('unit_amount')
+                                    ->label('Giá sản phẩm')
                                     ->numeric()
                                     ->required()
                                     ->disabled()
@@ -135,6 +144,7 @@ class OrderResource extends Resource
                                     ->columnSpan(3),
 
                                 TextInput::make('total_amount')
+                                    ->label('Tổng tiền')
                                     ->numeric()
                                     ->dehydrated()
                                     ->required()
@@ -142,7 +152,7 @@ class OrderResource extends Resource
 
                             ])->columns(12),
                         Placeholder::make('grand_total_placeholder')
-                            ->label('Grand Total')
+                            ->label('Tổng hóa đơn')
                             ->content(function (Get $get, Set $set) {
                                 $total = 0;
                                 if (!$repeaters = $get('items')) {
@@ -167,32 +177,37 @@ class OrderResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('user.name')
-                    ->label('Customer')
+                    ->label('Người dùng')
                     ->searchable()
                     ->searchable(),
                 TextColumn::make('grand_total')
+                    ->label('Tổng hóa đơn')
                     ->sortable()
                     ->numeric()
                     ->formatStateUsing(fn($state) => number_format($state, 2) . ' VND'),
                 TextColumn::make('payment_method')
+                    ->label('Phương thức thanh toán')
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('payment_status')
+                    ->label('Trạng thái thanh toán')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('currency')
-                    ->sortable()
-                    ->searchable(),
+                // TextColumn::make('currency')
+                //     ->sortable()
+                //     ->searchable(),
                 TextColumn::make('shipping_method')
+                    ->label('Giao hàng')
                     ->searchable()
                     ->sortable(),
                 SelectColumn::make('status')
+                    ->label('Tình trạng')
                     ->options([
-                        'new' => 'New',
-                        'processing' => 'Processing',
-                        'shipped' => 'Shipped',
-                        'delivered' => 'Delivered',
-                        'cancelled' => 'Cancelled'
+                        'new' => 'Đơn hàng mới',
+                        'processing' => 'Đang xử lý',
+                        'shipped' => 'Đang giao',
+                        'delivered' => 'Đã giao hàng',
+                        'cancelled' => 'Đã hủy'
                     ])
                     ->searchable()
                     ->sortable(),
@@ -204,17 +219,24 @@ class OrderResource extends Resource
                     ->sortable()
                     ->dateTime()
                     ->toggleable(isToggledHiddenByDefault: true),
-
             ])
             ->filters([
-                //
+
+            ])
+            ->headerActions([
+                Tables\Actions\Action::make('exportUsers')
+                    ->label('Xuất dữ liệu hóa đơn')
+                    ->icon('heroicon-m-check-badge')
+                    ->color('primary')
+                    ->url(route('orders.export'))
+                    ->openUrlInNewTab(),
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\EditAction::make(),
                     Tables\Actions\ViewAction::make(),
                     Tables\Actions\DeleteAction::make()
-                ])
+                ]),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -230,11 +252,13 @@ class OrderResource extends Resource
         ];
     }
 
-    public  static function getNavigationBadge() : ? string{
+    public static function getNavigationBadge(): ?string
+    {
         return static::getModel()::count();
     }
 
-    public static function getNavigationBadgeColor() : string|array|null{
+    public static function getNavigationBadgeColor(): string|array|null
+    {
         return static::getModel()::count() > 10 ? 'success' : 'danger';
     }
     public static function getPages(): array

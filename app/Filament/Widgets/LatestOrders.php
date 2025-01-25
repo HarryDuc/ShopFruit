@@ -11,8 +11,8 @@ use Filament\Widgets\TableWidget as BaseWidget;
 
 class LatestOrders extends BaseWidget
 {
-    public int | string | array $columnSpan = 'full';
-    protected static ? int $sort = 2;
+    public int|string|array $columnSpan = 'full';
+    protected static ?int $sort = 2;
     public function table(Table $table): Table
     {
         return $table
@@ -21,14 +21,17 @@ class LatestOrders extends BaseWidget
             ->defaultSort('created_at', 'desc')
             ->columns([
                 TextColumn::make('id')
-                    ->label('Order ID')
+                    ->label('ID Hóa đơn')
                     ->searchable(),
                 TextColumn::make('user.name')
+                    ->label('Người dùng')
                     ->searchable(),
                 TextColumn::make('grand_total')
+                    ->label('Tổng tiền')
                     ->money('VND')
                     ->sortable(),
                 TextColumn::make('status')
+                    ->label('Trạng thái')
                     ->badge()
                     ->color(fn(string $state): string => match ($state) {
                         'new' => 'info',
@@ -46,19 +49,22 @@ class LatestOrders extends BaseWidget
                     })
                     ->sortable(),
                 TextColumn::make('payment_method')
+                    ->label('Thanh toán')
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('payment_status')
+                    ->label('Trạng thái thanh toán')
                     ->sortable()
                     ->badge()
                     ->searchable(),
                 TextColumn::make('created_at')
-                    ->label('Order Date')
+                    ->label('Ngày tạo')
                     ->dateTime()
             ])
             ->actions([
                 Action::make('View Order')
-                    ->url(fn (Order $record): string => OrderResource::getUrl('view', ['record' => $record]))
+                    ->label('Xem')
+                    ->url(fn(Order $record): string => OrderResource::getUrl('view', ['record' => $record]))
                     ->icon('heroicon-m-eye')
             ]);
     }

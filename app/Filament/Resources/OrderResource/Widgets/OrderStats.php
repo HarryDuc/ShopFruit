@@ -13,10 +13,10 @@ class OrderStats extends BaseWidget
         $averagePrice = Order::query()->avg('grand_total') ?? 0;
 
         return [
-            Stat::make('New Orders', Order::query()->where('status', 'new')->count()),
-            Stat::make('Order Processing', Order::query()->where('status', 'processing')->count()),
-            Stat::make('Order Shipped', Order::query()->where('status', 'shipped')->count()),
-            Stat::make('Average Price', number_format($averagePrice, 0, ',', '.') . '₫'),
+            Stat::make('Đơn hàng mới', Order::query()->where('status', 'new')->count()),
+            Stat::make('Đang xử lý', Order::query()->where('status', 'processing')->count()),
+            Stat::make('Đã giao', Order::query()->where('status', 'shipped')->count()),
+            Stat::make('Trung bình giá', number_format($averagePrice, 0, ',', '.') . '₫'),
         ];
     }
 }

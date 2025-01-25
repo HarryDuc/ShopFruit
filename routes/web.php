@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OrdersExportController;
 use App\Livewire\Auth\ForgotPasswordPage;
 use App\Livewire\Auth\LoginPage;
 use App\Livewire\Auth\RegisterPage;
@@ -29,7 +30,7 @@ Route::get('/', ProductsPage::class);
 Route::get('/products', ProductsPage::class);
 Route::get('/cart', CartPage::class);
 Route::get('/products/{slug}', ProductDetailPage::class);
-
+Route::get('/admin/export-orders', [OrdersExportController::class, 'export'])->name('orders.export');
 Route::middleware('guest')->group(function() {
     Route::get('/login', LoginPage::class)->name('login');
     Route::get('/register', RegisterPage::class);

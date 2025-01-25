@@ -32,12 +32,14 @@ class OrdersRelationManager extends RelationManager
             ->recordTitleAttribute('id')
             ->columns([
                 TextColumn::make('id')
-                    ->label('Order ID')
+                    ->label('ID Hóa đơn')
                     ->searchable(),
                 TextColumn::make('grand_total')
+                    ->label('Tổng hóa đơn')
                     ->money('VND')
                     ->sortable(),
                 TextColumn::make('status')
+                    ->label('Trạng thái')
                     ->badge()
                     ->color(fn(string $state): string => match ($state) {
                         'new' => 'info',
@@ -55,14 +57,16 @@ class OrdersRelationManager extends RelationManager
                     })
                     ->sortable(),
                 TextColumn::make('payment_method')
+                    ->label('Thanh toán')
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('payment_status')
+                    ->label('Trạng thái thanh toán')
                     ->sortable()
                     ->badge()
                     ->searchable(),
                 TextColumn::make('created_at')
-                    ->label('Order Date')
+                    ->label('Ngày tạo')
                     ->dateTime()
             ])
             ->filters([
@@ -73,6 +77,7 @@ class OrdersRelationManager extends RelationManager
             ])
             ->actions([
                 Action::make('View Order')
+                    ->label('Xem')
                     ->url(fn (Order $record):string => OrderResource::getUrl('view', ['record' => $record]))
                     ->color('info')
                     ->icon('heroicon-o-eye'),

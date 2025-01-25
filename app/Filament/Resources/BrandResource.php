@@ -29,11 +29,13 @@ class BrandResource extends Resource
                     Grid::make()
                         ->schema([
                             TextInput::make('name')
+                                ->label('Tên')
                                 ->required()
                                 ->maxLength(255)
                                 ->live(onBlur: true)
                                 ->afterStateUpdated(fn(string $operation, $state, Set $set) => $operation === 'create' ? $set('slug', Str::slug($state)) : null),
                             TextInput::make('slug')
+                                ->label('Định dạng')
                                 ->maxLength(255)
                                 ->disabled()
                                 ->required()
@@ -41,10 +43,11 @@ class BrandResource extends Resource
                                 ->unique(Brand::class, 'slug', ignoreRecord: true)
                         ]),
                     FileUpload::make('image')
+                        ->label('Hình ảnh')
                         ->image()
                         ->directory('bands'),
-                        // dd($a),
                     Toggle::make('is_active')
+                        ->label('Hoạt động')
                         ->required()
                         ->default(true)
                 ])
@@ -56,11 +59,15 @@ class BrandResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Tên')
                     ->searchable(),
-                Tables\Columns\ImageColumn::make('image'),
+                Tables\Columns\ImageColumn::make('image')
+                    ->label('Hình ảnh'),
                 Tables\Columns\TextColumn::make('slug')
+                    ->label('Định dạng')
                     ->searchable(),
                 Tables\Columns\IconColumn::make('is_active')
+                    ->label('Hoạt động')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

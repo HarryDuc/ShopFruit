@@ -38,6 +38,7 @@ class ProductResource extends Resource
                 Group::make()->schema([
                     Section::make('Thông tin sản phẩm')->schema([
                         TextInput::make('name')
+                            ->label('Tên')
                             ->required()
                             ->maxLength(255)
                             ->live(onBlur: true)
@@ -48,18 +49,21 @@ class ProductResource extends Resource
                                 $set('slug', Str::slug($state));
                             }),
                         TextInput::make('slug')
+                            ->label('Định dạng')
                             ->disabled()
                             ->required()
                             ->maxLength(255)
                             ->dehydrated()
                             ->unique(Product::class, 'slug', ignoreRecord: true),
                         MarkdownEditor::make('description')
+                            ->label('Mô tả')
                             ->columnSpanFull()
                             ->fileAttachmentsDirectory('products')
                     ])->columns(2),
 
                     Section::make('Images')->schema([
                         FileUpload::make('images')
+                            ->label('Hình ảnh')
                             ->multiple()
                             ->directory('products')
                             ->maxFiles(5)
@@ -70,17 +74,20 @@ class ProductResource extends Resource
                 Group::make()->schema([
                     Section::make('Price')->schema([
                         TextInput::make('price')
+                            ->label('Giá')
                             ->numeric()
                             ->required()
                             ->prefix('VND')
                     ]),
                     Section::make('Associations')->schema([
                         Select::make('category_id')
+                            ->label('Dinh dưỡng')
                             ->required()
                             ->searchable()
                             ->preload()
                             ->relationship('category', 'name'),
                         Select::make('brand_id')
+                            ->label('Phân loại')
                             ->required()
                             ->searchable()
                             ->preload()
@@ -88,14 +95,18 @@ class ProductResource extends Resource
                     ]),
                     Section::make('Status')->schema([
                         Toggle::make('in_stock')
+                            ->label('Số lượng')
                             ->required()
                             ->default(true),
                         Toggle::make('is_active')
+                            ->label('Hoạt động')
                             ->required()
                             ->default(true),
                         Toggle::make('is_featured')
+                            ->label('Nổi bật')
                             ->required(),
                         Toggle::make('on_sale')
+                            ->label('Giảm giá')
                             ->required(),
                     ])
                 ])->columnSpan(1)
@@ -108,21 +119,29 @@ class ProductResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->label('Tên')
                     ->searchable(),
                 TextColumn::make('category.name')
+                    ->label('Dinh dưỡng')
                     ->sortable(),
                 TextColumn::make('brand.name')
+                    ->label('Phân loại')
                     ->sortable(),
                 TextColumn::make('price')
+                    ->label('Giá')
                     ->money('VND')
                     ->sortable(),
                 IconColumn::make('is_active')
+                    ->label('Hoạt động')
                     ->boolean(),
                 IconColumn::make('is_featured')
+                    ->label('Nổi bật')
                     ->boolean(),
                 IconColumn::make('in_stock')
+                    ->label('Số lượng')
                     ->boolean(),
                 IconColumn::make('on_sale')
+                    ->label('Giảm giá')
                     ->boolean(),
                 TextColumn::make('created_at')
                     ->dateTime()
