@@ -34,7 +34,7 @@
                                             class="border rounded-md py-2 px-4 ml-2">+</button>
                                     </div>
                                 </td>
-                                <td class="py-4">{{ number_format($item['unit_amount'], 0, ',', '.') }}₫</td>
+                                <td class="py-4">{{ number_format($item['unit_amount'] * $item['quantity'], 0, ',', '.') }}₫</td>
                                 <td><button wire:click="removeItem({{$item['product_id']}})"
                                         class="bg-slate-300 border-2 border-slate-400 rounded-lg px-3 py-1 hover:bg-red-500 hover:text-white hover:border-red-700"><span
                                             wire:loading.remove
